@@ -1,0 +1,50 @@
+.commentCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 16px;
+  margin: 36px auto 0;
+  background-color: #e3e3e3;
+  width: 720px;
+  border-radius: 5px;
+  min-height: 96px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.userName {
+  font-size: 12px;
+  font-weight: 400;
+  color: #000000;
+  line-height: 30px;
+}
+
+.timeAgo {
+  font-size: 12px;
+  font-weight: 400;
+  color: #000000 50%;
+}
+
+.content {
+  font-size: 12px;
+  font-weight: 400;
+  color: #000000 80%;
+  line-height: 16px;
+}
