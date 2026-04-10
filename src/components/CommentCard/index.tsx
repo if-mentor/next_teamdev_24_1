@@ -1,6 +1,7 @@
 import styles from "./styles.module.css";
 import { CommentCardProps } from "./type";
 import { dateConvert } from "@/utils/dateconvert";
+
 import Image from "next/image";
 
 export const CommentCard = ({ userName, userAvatarUrl, content, created_at }: CommentCardProps) => {
@@ -10,6 +11,7 @@ export const CommentCard = ({ userName, userAvatarUrl, content, created_at }: Co
   return (
     <div className={styles.commentCard}>
       <Image src={avatarSrc} alt={`${userName}'s avatar`} className={styles.avatar} width={32} height={32} />
+
 
       <div className={styles.body}>
         <div className={styles.header}>
