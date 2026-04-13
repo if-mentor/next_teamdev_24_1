@@ -4,8 +4,7 @@ import { ButtonProps } from "./type";
 const Button = ({
   label,
   type = "button",
-  onClick,
-  disabled = false,
+  disabled,
   variant = "primary",
   size = "medium",
   loading = false,
@@ -14,7 +13,6 @@ const Button = ({
   return (
     <button
       type={type}
-      onClick={onClick}
       disabled={disabled || loading}
       className={`${styles.button}  ${styles[variant]} ${styles[size]}`}
       {...rest}
