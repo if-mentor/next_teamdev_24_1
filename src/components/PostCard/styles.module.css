@@ -30,7 +30,7 @@
 }
 
 .container {
-  padding: 11px;
+  padding: 11px 11px 3px;
 }
 
 .title {
@@ -72,6 +72,7 @@
   letter-spacing: -0.015em;
   color: rgba(0, 0, 0, 0.5);
   margin-top: -12px;
+  padding-top: 8px;
 }
 
 .content {

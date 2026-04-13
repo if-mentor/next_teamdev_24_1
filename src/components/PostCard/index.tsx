@@ -11,13 +11,13 @@ export const PostCard = ({ title, author, category, thumbnailUrl, content, creat
       </div>
       <div className={styles.container}>
         <div className={styles.headerRow}>
-          <div className={styles.title}>{title}</div>
-          <div className={styles.category}>{category}</div>
+          <h2 className={styles.title}>{title}</h2>
+          <span className={styles.category}>{category}</span>
         </div>
         <div className={styles.author}>{author}</div>
-        <div className={styles.content}>{content}</div>
+        <p className={styles.content}>{content}</p>
         <div className={styles.footerRow}>
-          <div className={styles.timestamp}>{getRelativeTime(createdAt)}</div>
+          <time className={styles.timestamp}>{getRelativeTime(createdAt)}</time>
         </div>
       </div>
     </div>
