@@ -1,11 +1,11 @@
-import { Props } from "./type";
+import { SelectProps } from "./type";
 import styles from "./styles.module.css";
 
-const SelectBox = ({ label, options, placeholder, disabled }: Props) => {
+const SelectBox = ({ label, options, placeholder, ...selectProps }: SelectProps) => {
   return (
     <div className={styles.wrapper}>
       <label className={styles.label}>{label}</label>
-      <select className={styles.select} disabled={disabled}>
+      <select className={styles.select} {...selectProps}>
         <option value="">{placeholder}</option>
         {options.map((option, index) => (
           <option key={index} value={option}>

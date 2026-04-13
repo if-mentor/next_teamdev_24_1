@@ -1,6 +1,7 @@
-export type Props = {
+import { SelectHTMLAttributes } from "react";
+
+export type SelectProps = {
   label?: string;
   options: string[];
   placeholder?: string;
-  disabled?: boolean;
-};
+} & SelectHTMLAttributes<HTMLSelectElement>;
