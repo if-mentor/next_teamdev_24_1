@@ -10,7 +10,7 @@ const Button = ({
   ...rest
 }: ButtonProps) => {
   return (
-    <button type={type} className={`${styles.button}  ${styles[variant]} ${styles[size]}`} {...rest}>
+    <button type={type} disabled={loading} className={`${styles.button}  ${styles[variant]} ${styles[size]}`} {...rest}>
       {loading ? "Loading..." : label}
     </button>
   );
