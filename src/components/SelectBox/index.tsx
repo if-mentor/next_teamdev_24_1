@@ -7,8 +7,8 @@ const SelectBox = ({ label, options, placeholder, ...selectProps }: SelectProps)
       <label className={styles.label}>{label}</label>
       <select className={styles.select} {...selectProps}>
         <option value="">{placeholder}</option>
-        {options.map((option, index) => (
-          <option key={index} value={option}>
+        {options.map((option) => (
+          <option key={option} value={option}>
             {option}
           </option>
         ))}
