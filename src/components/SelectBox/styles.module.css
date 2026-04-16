@@ -1,0 +1,33 @@
+.wrapper {
+  position: absolute;
+  top: 584px;
+  left: 840px;
+}
+
+.label {
+  width: 240px;
+  height: 17px;
+  font-family: Geist;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+  letter-spacing: 0;
+  color: #1e1e1e;
+}
+
+.select {
+  width: 240px;
+  height: 40px;
+  min-width: 240px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1px solid #d8d8d8;
+  padding: 8px 8px 8px 12px;
+  font-family: Geist;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0;
+}
