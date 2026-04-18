@@ -1,0 +1,77 @@
+.form {
+  width: 792px;
+  height: 442px;
+  position: absolute;
+  top: 200px;
+  left: 324px;
+  border-radius: 20px;
+  background-color: #ffffff;
+}
+
+.title {
+  width: 128px;
+  height: 42px;
+  position: absolute;
+  left: 332px;
+  font-family: Geist;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 100%;
+  text-align: center;
+  color: #000000;
+}
+
+.emailField {
+  width: 480px;
+  height: 72px;
+  position: absolute;
+  top: 90px;
+  left: 156px;
+  border-radius: 8px;
+}
+
+.passwordField {
+  width: 480px;
+  height: 72px;
+  position: absolute;
+  top: 210px;
+  left: 156px;
+  border-radius: 8px;
+}
+
+.emailField label,
+.passwordField label {
+  font-family: Poppins;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  color: #000000;
+}
+
+.buttonWrapper {
+  width: 480px;
+  height: 48px;
+  position: absolute;
+  top: 330px;
+  left: 156px;
+}
+
+.helperText {
+  width: 216px;
+  height: 16px;
+  position: absolute;
+  top: 394px;
+  left: 420px;
+  font-family: Geist;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 100%;
+}
+
+.signupLink {
+  font-family: Geist;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 100%;
+  color: #18a0fb;
+}
