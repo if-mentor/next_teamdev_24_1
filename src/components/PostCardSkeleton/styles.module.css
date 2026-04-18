@@ -1,0 +1,69 @@
+/* ベース */
+.postCard {
+  width: 280px;
+  height: 324px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 180px;
+  background: rgba(224, 231, 236, 1);
+}
+
+.container {
+  padding: 11px 11px 3px;
+}
+
+.title {
+  width: 73px;
+  height: 16px;
+  background: rgba(224, 231, 236, 1);
+  border-radius: 4px;
+  flex: 1;
+}
+
+.headerRow {
+  height: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category {
+  width: 36px;
+  height: 16px;
+  background: rgba(224, 231, 236, 1);
+  border-radius: 4px;
+}
+
+.author {
+  width: 27px;
+  height: 10px;
+  background: rgba(224, 231, 236, 1);
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+.content {
+  width: 256px;
+  height: 36px;
+  background: rgba(224, 231, 236, 1);
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.footerRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.timestamp {
+  width: 40px;
+  height: 10px;
+  background: rgba(224, 231, 236, 1);
+  border-radius: 4px;
+}
