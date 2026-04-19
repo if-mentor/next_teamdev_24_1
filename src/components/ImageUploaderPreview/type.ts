@@ -1,6 +1,6 @@
 export type ImageUploaderPreviewProps = {
   accept?: string;
-  size?: number;
+  maxFileSizeMB?: number;
   disabled?: boolean;
   error?: string;
 };
