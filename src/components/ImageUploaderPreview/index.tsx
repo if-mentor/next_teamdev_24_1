@@ -1,13 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import styles from "./styles.module.css";
 import type { ImageUploaderPreviewProps } from "./type";
 
-export const ImageUploaderPreview = ({
+const ImageUploaderPreview = ({
   accept = "image/png,image/jpeg",
-  size = 5,
+  maxFileSizeMB = 5,
   disabled = false,
   error,
 }: ImageUploaderPreviewProps) => {
@@ -25,8 +25,8 @@ export const ImageUploaderPreview = ({
       return;
     }
 
-    if (file.size > size * 1024 * 1024) {
-      setInternalError(`ファイルサイズは ${size}MB 以下にしてください。`);
+    if (file.size > maxFileSizeMB * 1024 * 1024) {
+      setInternalError(`ファイルサイズは ${maxFileSizeMB}MB 以下にしてください。`);
       return;
     }
 
@@ -41,7 +41,7 @@ export const ImageUploaderPreview = ({
         <input type="file" accept={accept} disabled={disabled} onChange={processFile} className={styles.input} />
 
         {previewUrl ? (
-          <img src={previewUrl} alt="プレビュー" className={styles.previewImage} />
+          <Image src={previewUrl} alt="プレビュー" className={styles.previewImage} fill />
         ) : (
           <div className={styles.uploadButton}>画像アップロード</div>
         )}
@@ -51,3 +51,5 @@ export const ImageUploaderPreview = ({
     </div>
   );
 };
+
+export default ImageUploaderPreview;
