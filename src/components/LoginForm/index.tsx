@@ -16,16 +16,16 @@ export default function LoginForm() {
         <Input label="パスワード" type="password" name="password" placeholder="パスワード" />
       </div>
 
-      <div className={styles.buttonWrapper}>
+      <div>
         <Button label="ログイン" variant="success" size="large" />
-      </div>
 
-      <p className={styles.helperText}>
-        アカウントをお持ちでない方は
-        <Link href="/signup" className={styles.signupLink}>
-          新規登録
-        </Link>
-      </p>
+        <p className={styles.helperText}>
+          アカウントをお持ちでない方は
+          <Link href="/signup" className={styles.signupLink}>
+            新規登録
+          </Link>
+        </p>
+      </div>
     </form>
   );
 }
