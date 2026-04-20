@@ -1,0 +1,46 @@
+.form {
+  display: grid;
+  justify-content: center;
+  gap: 48px;
+  background-color: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+}
+
+.title {
+  font-family: Geist;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 100%;
+  text-align: center;
+  color: #000000;
+}
+
+.emailField label,
+.passwordField label {
+  font-family: Poppins;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  color: #000000;
+}
+
+.helperText {
+  margin-top: 16px;
+  font-family: Geist;
+  text-align: right;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 100%;
+}
+
+.signupLink {
+  font-family: Geist;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 100%;
+  color: #18a0fb;
+}
