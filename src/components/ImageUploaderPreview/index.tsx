@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./styles.module.css";
 import type { ImageUploaderPreviewProps } from "./type";
 
 const ImageUploaderPreview = ({
-  accept = "image/png,image/jpeg",
+  accept = "image/png,image/jpeg,image/jpg",
   maxFileSizeMB = 5,
   disabled = false,
   error,
@@ -15,6 +15,14 @@ const ImageUploaderPreview = ({
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [internalError, setInternalError] = useState("");
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
 
   const processFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
