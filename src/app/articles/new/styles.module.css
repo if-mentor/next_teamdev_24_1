@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputWrapper {
+  margin-top: 48px;
+}
+
+.imageUpload {
+  width: 720px;
+  height: 360px;
+  margin-top: 40px;
+  margin-bottom: 105px;
+  border: 2px dashed #000000;
+  border-radius: 8px;
+}
+
+.textBox {
+  width: 720px;
+  height: 240px;
+  border: none;
+  background: #e3e3e3;
+  border-radius: 41px;
+  padding: 24px;
+}
+
+.textBox:focus {
+  outline: 2px solid #d0d0d0;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 32px;
+}
