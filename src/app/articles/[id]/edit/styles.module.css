@@ -1,0 +1,61 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 48px;
+  margin: 0 auto;
+  align-items: center;
+  max-width: 720px;
+}
+
+.titleField {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 360px;
+  margin-bottom: 24px;
+  border: 2px dashed #000000;
+  border-radius: 8px;
+}
+
+.selectWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+/* TODO: SelectBox の position:absolute 削除後に本ブロックは不要 */
+.selectWrapper > div {
+  position: static;
+  top: auto;
+  left: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.textBox {
+  width: 100%;
+  box-sizing: border-box;
+  height: 240px;
+  border: none;
+  background: #e3e3e3;
+  border-radius: 41px;
+  padding: 24px;
+  letter-spacing: 0.05em;
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+.textBox:focus {
+  outline: 2px solid #d0d0d0;
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  justify-content: flex-end;
+}
