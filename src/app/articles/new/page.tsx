@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import Input from "@/components/Input";
 import SelectBox from "@/components/SelectBox";
 import styles from "./styles.module.css";
+import TextBox from "@/components/TextBox";
 
 export default function ArticleNewPage() {
   return (
@@ -23,7 +24,7 @@ export default function ArticleNewPage() {
           placeholder="選択してください"
         />
 
-        <textarea placeholder="本文を入力してください" className={styles.textBox} />
+        <TextBox />
 
         <div className={styles.buttonWrapper}>
           <Button label="投稿" variant="success" size="medium" />
