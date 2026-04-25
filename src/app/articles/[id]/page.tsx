@@ -4,6 +4,7 @@ import { CommentCard } from "@/components/CommentCard";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import styles from "./styles.module.css";
+import { dateConvert } from "@/utils/dateconvert";
 
 const article = {
   title: "Blog Title",
@@ -13,6 +14,7 @@ const article = {
   category: "Category",
   content:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ligula nibh, interdum non enim sit amet, iaculis aliquet nunc.",
+  created_at: new Date().toISOString(),
 };
 
 const comments = [
@@ -43,7 +45,7 @@ export default function ArticleDetailPage() {
           <div className={styles.cardHeader}>
             <h1 className={styles.title}>{article.title}</h1>
             <div className={styles.authorWrapper}>
-              <span className={styles.authorLabel}>Author</span>
+              <span className={styles.authorLabel}>{article.author}</span>
               <Image
                 src={article.authorAvatarUrl}
                 alt={article.author}
@@ -65,7 +67,7 @@ export default function ArticleDetailPage() {
           <span className={styles.category}>{article.category}</span>
           <p className={styles.content}>{article.content}</p>
           <div className={styles.footer}>
-            <time className={styles.timestamp}>a min ago</time>
+            <time className={styles.timestamp}>{dateConvert(article.created_at)}</time>
             <Button label="編集" variant="success" size="medium" />
           </div>
         </div>
