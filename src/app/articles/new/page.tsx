@@ -16,7 +16,7 @@ export default function ArticleNewPage() {
         </div>
 
         <div className={styles.imageUpload}>
-          <span>後ほど画像アップロードコンポーネントを挿入する</span>
+          <span>画像プレビューコンポーネントのレビュー中のため、後ほど挿入する。</span>
         </div>
 
         <SelectBox

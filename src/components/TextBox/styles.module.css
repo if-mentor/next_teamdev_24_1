@@ -5,6 +5,8 @@
   background: #e3e3e3;
   border-radius: 41px;
   padding: 24px;
+  letter-spacing: 0.05em;
+  line-height: 1.8;
 }
 
 .textBox:focus {
