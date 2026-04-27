@@ -7,16 +7,16 @@ import TextBox from "@/components/TextBox";
 
 export default function ArticleNewPage() {
   return (
-    <div className={styles.wrapper}>
+    <div>
       <Header />
 
-      <main>
+      <main className={styles.wrapper}>
         <div className={styles.inputWrapper}>
           <Input type="text" name="title" placeholder="タイトルを入力" size="large" />
         </div>
 
         <div className={styles.imageUpload}>
-          <span>画像プレビューコンポーネントのレビュー中のため、後ほど挿入する。</span>
+          <span>画像プレビューコンポーネントのレビュー中のため、後ほど挿入。</span>
         </div>
 
         <SelectBox
