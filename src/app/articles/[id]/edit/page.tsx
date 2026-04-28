@@ -3,6 +3,7 @@ import Input from "@/components/Input";
 import styles from "./styles.module.css";
 import SelectBox from "@/components/SelectBox";
 import Button from "@/components/Button";
+import ImageUploaderPreview from "@/components/ImageUploaderPreview";
 
 export default function ArticleEditPage() {
   return (
@@ -12,8 +13,9 @@ export default function ArticleEditPage() {
         <div className={styles.titleField}>
           <Input placeholder="タイトルを入力" type="text" size="large" />
         </div>
-        {/* TODO: ImageUploaderPreview コンポーネント実装後に差し替え */}
-        <div className={styles.imageWrapper}>ImageUploaderPreview コンポーネント</div>
+        <div className={styles.imageUploaderWrapper}>
+          <ImageUploaderPreview />
+        </div>
         <div className={styles.selectWrapper}>
           <SelectBox
             label="カテゴリ"

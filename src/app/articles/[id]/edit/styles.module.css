@@ -12,12 +12,8 @@
   margin-bottom: 40px;
 }
 
-.imageWrapper {
-  width: 100%;
-  height: 360px;
+.imageUploaderWrapper {
   margin-bottom: 24px;
-  border: 2px dashed #000000;
-  border-radius: 8px;
 }
 
 .selectWrapper {
