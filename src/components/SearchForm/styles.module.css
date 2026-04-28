@@ -1,0 +1,47 @@
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.searchInput {
+  width: 480px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid rgba(89, 99, 110, 1);
+  padding: 0 16px;
+  opacity: 0.5;
+  outline: none;
+  background: rgba(255, 255, 255, 1);
+}
+
+.searchButton {
+  width: 120px;
+  height: 40px;
+  background: rgba(56, 56, 56, 1);
+  color: rgba(255, 255, 255, 1);
+  border: none;
+  border-radius: 8px;
+  font-family: "Geist", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchButton:hover:not(:disabled) {
+  filter: brightness(0.85);
+}
+
+.searchButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.searchInput:disabled {
+  cursor: not-allowed;
+}
