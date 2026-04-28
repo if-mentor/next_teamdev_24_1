@@ -49,10 +49,10 @@ export default function ArticleDetailPage() {
 
         <section className={styles.commentSection}>
           <h2 className={styles.commentCount}>{comments.length}件のコメント</h2>
-          <div className={styles.commentInputWrapper}>
+          <form className={styles.commentInputWrapper}>
             <Input placeholder="コメントを入力" size="large" />
             <Button label="コメント" variant="success" size="medium" />
-          </div>
+          </form>
           <div className={styles.commentList}>
             {comments.map((comment) => (
               <CommentCard
