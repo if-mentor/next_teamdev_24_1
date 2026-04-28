@@ -5,36 +5,7 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateconvert";
-
-const article = {
-  title: "Blog Title",
-  author: "Author",
-  authorAvatarUrl: "/default_user_icon.png",
-  thumbnailUrl: "/sample1.jpg",
-  category: "Category",
-  content:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ligula nibh, interdum non enim sit amet, iaculis aliquet nunc.",
-  created_at: new Date().toISOString(),
-};
-
-const comments = [
-  {
-    id: 1,
-    userName: "ユーザー名",
-    userAvatarUrl: "/default_user_icon.png",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ligula nibh, interdum non enim sit amet, iaculis aliquet nunc.",
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: 2,
-    userName: "ユーザー名",
-    userAvatarUrl: "/default_user_icon.png",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ligula nibh, interdum non enim sit amet, iaculis aliquet nunc.",
-    created_at: new Date().toISOString(),
-  },
-];
+import { dummyArticle as article, dummyComments as comments } from "@/dummy/articleDetail";
 
 export default function ArticleDetailPage() {
   return (
