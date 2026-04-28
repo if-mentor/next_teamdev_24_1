@@ -4,6 +4,7 @@ import Input from "@/components/Input";
 import SelectBox from "@/components/SelectBox";
 import styles from "./styles.module.css";
 import TextBox from "@/components/TextBox";
+import ImageUploaderPreview from "@/components/ImageUploaderPreview";
 
 export default function ArticleNewPage() {
   return (
@@ -16,7 +17,7 @@ export default function ArticleNewPage() {
         </div>
 
         <div className={styles.imageUpload}>
-          <span>画像プレビューコンポーネントのレビュー中のため、後ほど挿入。</span>
+          <ImageUploaderPreview />
         </div>
 
         <SelectBox
