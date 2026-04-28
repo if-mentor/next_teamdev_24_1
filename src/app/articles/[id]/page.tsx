@@ -6,6 +6,7 @@ import Button from "@/components/Button";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateconvert";
 import { dummyArticle as article, dummyComments as comments } from "@/dummy/articleDetail";
+import Link from "next/link";
 
 export default function ArticleDetailPage() {
   return (
@@ -39,7 +40,10 @@ export default function ArticleDetailPage() {
           <p className={styles.content}>{article.content}</p>
           <div className={styles.footer}>
             <time className={styles.timestamp}>{dateConvert(article.created_at)}</time>
-            <Button label="編集" variant="success" size="medium" />
+            {/* バックエンド実装時に article.id に変更 */}
+            <Link href={`/articles/1/edit`}>
+              <Button label="編集" variant="success" size="medium" />
+            </Link>
           </div>
         </div>
 
