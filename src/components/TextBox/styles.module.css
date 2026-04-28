@@ -12,3 +12,7 @@
 .textBox:focus {
   outline: 2px solid #d0d0d0;
 }
+
+.errorMessage {
+  color: #b91c1c;
+}
