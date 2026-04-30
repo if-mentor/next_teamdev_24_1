@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Header } from "@/components/Header";
 import { CommentCard } from "@/components/CommentCard";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
@@ -11,7 +10,6 @@ import Link from "next/link";
 export default function ArticleDetailPage() {
   return (
     <>
-      <Header />
       <main className={styles.main}>
         <div className={styles.card}>
           <div className={styles.cardHeader}>
