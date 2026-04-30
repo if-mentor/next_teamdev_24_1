@@ -16,7 +16,7 @@ export default function ArticleEditPage() {
         <div className={styles.imageUploaderWrapper}>
           <ImageUploaderPreview />
         </div>
-        <div className={styles.selectWrapper}>
+        <div className={styles.selectBoxWrapper}>
           <SelectBox
             label="カテゴリ"
             options={["日常", "仕事", "勉強", "美容", "趣味", "購入品", "健康", "その他"]}

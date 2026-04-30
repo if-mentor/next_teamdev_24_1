@@ -16,20 +16,12 @@
   margin-bottom: 24px;
 }
 
-.selectWrapper {
+.selectBoxWrapper {
+  flex-direction: column;
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-end;
   margin-bottom: 24px;
-}
-
-/* TODO: SelectBox の position:absolute 削除後に本ブロックは不要 */
-.selectWrapper > div {
-  position: static;
-  top: auto;
-  left: auto;
-  display: flex;
-  flex-direction: column;
 }
 
 .textBox {
