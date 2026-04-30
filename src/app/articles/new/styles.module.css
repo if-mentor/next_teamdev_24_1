@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.inputWrapper {
+  margin-top: 48px;
+}
+
+.imageUpload {
+  margin-top: 40px;
+  margin-bottom: 105px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 32px;
+}
