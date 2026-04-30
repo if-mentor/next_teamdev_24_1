@@ -1,0 +1,49 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 48px;
+  margin: 0 auto;
+  align-items: center;
+  max-width: 720px;
+}
+
+.titleField {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.imageUploaderWrapper {
+  margin-bottom: 24px;
+}
+
+.selectBoxWrapper {
+  flex-direction: column;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 24px;
+}
+
+.textBox {
+  width: 100%;
+  box-sizing: border-box;
+  height: 240px;
+  border: none;
+  background: #e3e3e3;
+  border-radius: 41px;
+  padding: 24px;
+  letter-spacing: 0.05em;
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+.textBox:focus {
+  outline: 2px solid #d0d0d0;
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  justify-content: flex-end;
+}
