@@ -5,7 +5,6 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import Button from "@/components/Button";
 import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
 import { signupAction, type SignupFormState } from "./actions";
 
 const initialState: SignupFormState = {
@@ -17,14 +16,8 @@ const initialState: SignupFormState = {
   success: false,
 };
 
-const SubmitButton = () => {
-  const { pending } = useFormStatus();
-
-  return <Button label="登録する" type="submit" variant="success" size="large" loading={pending} />;
-};
-
 export default function SignupPage() {
-  const [state, formAction] = useActionState(signupAction, initialState);
+  const [state, formAction, isPending] = useActionState(signupAction, initialState);
 
   return (
     <div className={styles.container}>
@@ -57,7 +50,7 @@ export default function SignupPage() {
         {state.errors.form && <p className={styles.errorMessage}>{state.errors.form}</p>}
         {state.success && state.message && <p className={styles.successMessage}>{state.message}</p>}
 
-        <SubmitButton />
+        <Button label="登録する" type="submit" variant="success" size="large" loading={isPending} />
       </form>
 
       <div className={styles.loginLink}>
