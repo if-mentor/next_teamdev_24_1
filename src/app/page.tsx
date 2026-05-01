@@ -1,6 +1,5 @@
 "use client";
 
-import { Header } from "@/components/Header";
 import { PostCard } from "@/components/PostCard";
 import { SearchForm } from "@/components/SearchForm";
 import styles from "./styles.module.css";
@@ -83,7 +82,6 @@ const dummyPosts = [
 export default function Home() {
   return (
     <>
-      <Header />
       <main className={styles.main}>
         <div className={styles.searchWrapper}>
           <SearchForm onSearch={(value) => console.log(value)} />
