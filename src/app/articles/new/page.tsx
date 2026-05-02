@@ -1,5 +1,4 @@
 import Button from "@/components/Button";
-import { Header } from "@/components/Header";
 import Input from "@/components/Input";
 import SelectBox from "@/components/SelectBox";
 import styles from "./styles.module.css";
@@ -9,8 +8,6 @@ import ImageUploaderPreview from "@/components/ImageUploaderPreview";
 export default function ArticleNewPage() {
   return (
     <div>
-      <Header />
-
       <main className={styles.wrapper}>
         <div className={styles.inputWrapper}>
           <Input type="text" name="title" placeholder="タイトルを入力" size="large" />
