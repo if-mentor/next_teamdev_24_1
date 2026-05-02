@@ -24,21 +24,8 @@
   margin-bottom: 24px;
 }
 
-.textBox {
-  width: 100%;
-  box-sizing: border-box;
-  height: 240px;
-  border: none;
-  background: #e3e3e3;
-  border-radius: 41px;
-  padding: 24px;
-  letter-spacing: 0.05em;
-  line-height: 1.8;
+.textBoxWrapper {
   margin-bottom: 32px;
-}
-
-.textBox:focus {
-  outline: 2px solid #d0d0d0;
 }
 
 .buttonWrapper {

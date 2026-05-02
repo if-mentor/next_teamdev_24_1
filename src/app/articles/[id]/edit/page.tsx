@@ -3,6 +3,7 @@ import styles from "./styles.module.css";
 import SelectBox from "@/components/SelectBox";
 import Button from "@/components/Button";
 import ImageUploaderPreview from "@/components/ImageUploaderPreview";
+import TextBox from "@/components/TextBox";
 
 export default function ArticleEditPage() {
   return (
@@ -21,9 +22,9 @@ export default function ArticleEditPage() {
             placeholder="カテゴリ選択"
           />
         </div>
-        {/* TODO: TextBox コンポーネント実装後に差し替え */}
-        <textarea placeholder="本文を入力してください" className={styles.textBox} aria-label="本文" />
-
+        <div className={styles.textBoxWrapper}>
+          <TextBox />
+        </div>
         <div className={styles.buttonWrapper}>
           <Button label="更新" variant="success" />
           <Button label="削除" variant="danger" />
