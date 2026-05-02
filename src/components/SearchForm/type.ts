@@ -1,5 +1,5 @@
 export type SearchFormProps = {
-  onSearch: (value: string) => void;
+  searchAction: (formData: FormData) => Promise<void>;
   placeholder?: string;
   disabled?: boolean;
 };
