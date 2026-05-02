@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import Button from "../Button";
 import styles from "./styles.module.css";
 import Input from "../Input";
@@ -8,6 +9,8 @@ import { login } from "@/app/login/actions";
 import { useActionState } from "react";
 
 export default function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [state, formAction] = useActionState(login, null);
 
   return (
@@ -20,6 +23,8 @@ export default function LoginForm() {
           type="email"
           name="email"
           placeholder="メールアドレスを入力"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           error={state?.error?.email?.[0]}
         />
       </div>
@@ -30,6 +35,8 @@ export default function LoginForm() {
           type="password"
           name="password"
           placeholder="パスワード"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           error={state?.error?.password?.[0]}
         />
       </div>
