@@ -1,4 +1,3 @@
-import { Header } from "@/components/Header";
 import Input from "@/components/Input";
 import styles from "./styles.module.css";
 import SelectBox from "@/components/SelectBox";
@@ -8,7 +7,6 @@ import ImageUploaderPreview from "@/components/ImageUploaderPreview";
 export default function ArticleEditPage() {
   return (
     <>
-      <Header />
       <main className={styles.content}>
         <div className={styles.titleField}>
           <Input placeholder="タイトルを入力" type="text" size="large" />
