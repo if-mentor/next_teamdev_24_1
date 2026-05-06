@@ -1,0 +1,36 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 48px;
+  margin: 0 auto;
+  align-items: center;
+  max-width: 720px;
+}
+
+.titleField {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.imageUploaderWrapper {
+  margin-bottom: 24px;
+}
+
+.selectBoxWrapper {
+  flex-direction: column;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 24px;
+}
+
+.textBoxWrapper {
+  margin-bottom: 32px;
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  justify-content: flex-end;
+}
