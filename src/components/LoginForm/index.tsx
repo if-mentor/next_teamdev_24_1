@@ -11,7 +11,7 @@ import { useActionState } from "react";
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [state, formAction] = useActionState(login, null);
+  const [state, formAction, isPending] = useActionState(login, null);
 
   return (
     <form className={styles.form} action={formAction}>
@@ -42,7 +42,7 @@ export default function LoginForm() {
       </div>
 
       <div>
-        <Button type="submit" label="ログイン" variant="success" size="large" />
+        <Button type="submit" label="ログイン" variant="success" size="large" loading={isPending} />
 
         <p className={styles.helperText}>
           アカウントをお持ちでない方は

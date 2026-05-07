@@ -18,7 +18,7 @@ type LoginState = {
   };
 } | null;
 
-export async function login(prevState: LoginState, formData: FormData): Promise<LoginState> {
+export async function login(_prevState: LoginState, formData: FormData): Promise<LoginState> {
   const email = formData.get("email");
   const password = formData.get("password");
 
