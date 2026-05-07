@@ -1,13 +1,39 @@
 import Image from "next/image";
+import { notFound } from "next/navigation";
+import { createClient } from "@/libs/supabase/server";
 import { CommentCard } from "@/components/CommentCard";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateconvert";
-import { dummyArticle as article, dummyComments as comments } from "@/dummy/articleDetail";
+import { dummyComments as comments } from "@/dummy/articleDetail";
 import Link from "next/link";
 
-export default function ArticleDetailPage() {
+type ArticleDetailPageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function ArticleDetailPage({ params }: ArticleDetailPageProps) {
+  const { id } = await params;
+  const supabase = await createClient();
+  const { data: article, error } = await supabase
+    .from("posts")
+    .select(
+      `
+      id,
+      title,
+      content,
+      image_path,
+      created_at,
+      categories(name),
+      users(name, image_path)`,
+    )
+    .eq("id", Number(id))
+    .single();
+
+  if (error || !article) {
+    notFound();
+  }
   return (
     <>
       <main className={styles.main}>
@@ -15,10 +41,10 @@ export default function ArticleDetailPage() {
           <div className={styles.cardHeader}>
             <h1 className={styles.title}>{article.title}</h1>
             <div className={styles.authorWrapper}>
-              <span className={styles.authorLabel}>{article.author}</span>
+              <span className={styles.authorLabel}>{article.users.name}</span>
               <Image
-                src={article.authorAvatarUrl}
-                alt={article.author}
+                src={article.users.image_path || "/default_user_icon.png"}
+                alt={article.users.name}
                 width={32}
                 height={32}
                 className={styles.avatar}
@@ -26,20 +52,13 @@ export default function ArticleDetailPage() {
             </div>
           </div>
           <div className={styles.thumbnail}>
-            <Image
-              src={article.thumbnailUrl}
-              alt={article.title}
-              fill
-              sizes="720px"
-              className={styles.thumbnailImage}
-            />
+            <Image src={article.image_path} alt={article.title} fill sizes="720px" className={styles.thumbnailImage} />
           </div>
-          <span className={styles.category}>{article.category}</span>
+          <span className={styles.category}>{article.categories.name}</span>
           <p className={styles.content}>{article.content}</p>
           <div className={styles.footer}>
             <time className={styles.timestamp}>{dateConvert(article.created_at)}</time>
-            {/* バックエンド実装時に article.id に変更 */}
-            <Link href={`/articles/1/edit`}>
+            <Link href={`/articles/${article.id}/edit`}>
               <Button label="編集" variant="success" size="medium" />
             </Link>
           </div>
