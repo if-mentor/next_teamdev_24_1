@@ -1,12 +1,17 @@
-"use client";
-
-import { useState } from "react";
+import { createClient } from "@/libs/supabase/server";
+import { logout } from "@/app/actions";
 import styles from "./styles.module.css";
 import Button from "../Button";
 import Link from "next/link";
 
-export const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+export const Header = async () => {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const isLoggedIn = !!user;
 
   return (
     <header className={styles.header}>
@@ -15,7 +20,9 @@ export const Header = () => {
           <Link href="/articles/new" className={`${styles.button}  ${styles.secondaryButton} ${styles.mediumButton}`}>
             新規作成
           </Link>
-          <Button label="ログアウト" onClick={() => setIsLoggedIn(false)} />
+          <form action={logout}>
+            <Button type="submit" label="ログアウト" />
+          </form>
         </div>
       ) : (
         <div className={styles.buttonWrapper}>
