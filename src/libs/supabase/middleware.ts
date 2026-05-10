@@ -3,7 +3,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 // 未認証ならログインへ飛ばすパス (文字列は前方一致、正規表現は test で判定)
-const PROTECTED_PATHS: (string | RegExp)[] = ["/articles/new", "/profile", /^\/articles\/[^/]+\/edit$/];
+const PROTECTED_PATHS: (string | RegExp)[] = ["/articles/new", /^\/articles\/[^/]+\/edit$/];
 // 認証済みならホームへ飛ばすパス
 const GUEST_ONLY_PATHS = ["/login", "/signup"];
 export async function updateSession(request: NextRequest) {
