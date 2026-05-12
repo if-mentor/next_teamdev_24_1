@@ -6,7 +6,6 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateconvert";
-import { dummyComments as comments } from "@/dummy/articleDetail";
 import Link from "next/link";
 
 type ArticleDetailPageProps = {
@@ -33,6 +32,22 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
 
   if (error || !article) {
     notFound();
+  }
+
+  const { data: comments, error: commentsError } = await supabase
+    .from("comments")
+    .select(
+      `
+      id,
+      content,
+      created_at,
+      users(name, image_path)`,
+    )
+    .eq("post_id", Number(id))
+    .order("created_at", { ascending: false });
+
+  if (commentsError) {
+    console.error("コメント取得に失敗しました:", commentsError.message);
   }
   return (
     <>
@@ -65,17 +80,17 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
         </div>
 
         <section className={styles.commentSection}>
-          <h2 className={styles.commentCount}>{comments.length}件のコメント</h2>
+          <h2 className={styles.commentCount}>{comments?.length || 0}件のコメント</h2>
           <form className={styles.commentInputWrapper}>
             <Input placeholder="コメントを入力" size="large" />
             <Button label="コメント" variant="success" size="medium" />
           </form>
           <div className={styles.commentList}>
-            {comments.map((comment) => (
+            {comments?.map((comment) => (
               <CommentCard
                 key={comment.id}
-                userName={comment.userName}
-                userAvatarUrl={comment.userAvatarUrl}
+                userName={comment.users.name}
+                userAvatarUrl={comment.users.image_path || "/default_user_icon.png"}
                 content={comment.content}
                 created_at={comment.created_at}
               />
