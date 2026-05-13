@@ -32,15 +32,18 @@ export async function updateSession(request: NextRequest) {
     typeof p === "string" ? pathname === p || pathname.startsWith(`${p}/`) : p.test(pathname),
   );
   const isGuestOnly = GUEST_ONLY_PATHS.some((p) => pathname === p);
+
   if (!user && isProtected) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
   }
+
   if (user && isGuestOnly) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     return NextResponse.redirect(url);
   }
+
   return supabaseResponse;
 }
