@@ -46,7 +46,14 @@ const ImageUploaderPreview = ({
   return (
     <div className={styles.wrapper}>
       <label className={`${styles.uploader} ${disabled ? styles.disabled : ""}`}>
-        <input type="file" accept={accept} disabled={disabled} onChange={processFile} className={styles.input} />
+        <input
+          type="file"
+          name="image"
+          accept={accept}
+          disabled={disabled}
+          onChange={processFile}
+          className={styles.input}
+        />
 
         {previewUrl ? (
           <Image src={previewUrl} alt="プレビュー" className={styles.previewImage} fill />
