@@ -2,11 +2,11 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { createClient } from "@/libs/supabase/server";
 import { CommentCard } from "@/components/CommentCard";
-import Input from "@/components/Input";
 import Button from "@/components/Button";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateconvert";
 import Link from "next/link";
+import { CommentForm } from "./CommentForm";
 
 type ArticleDetailPageProps = {
   params: Promise<{ id: string }>;
@@ -81,10 +81,7 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
 
         <section className={styles.commentSection}>
           <h2 className={styles.commentCount}>{comments?.length || 0}件のコメント</h2>
-          <form className={styles.commentInputWrapper}>
-            <Input placeholder="コメントを入力" size="large" />
-            <Button label="コメント" variant="success" size="medium" />
-          </form>
+          <CommentForm postId={article.id} />
           <div className={styles.commentList}>
             {comments?.map((comment) => (
               <CommentCard
