@@ -7,6 +7,7 @@ import Button from "@/components/Button";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateconvert";
 import Link from "next/link";
+import { deleteArticle } from "./actions";
 
 type ArticleDetailPageProps = {
   params: Promise<{ id: string }>;
@@ -24,6 +25,7 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
       content,
       image_path,
       created_at,
+      user_id,
       categories(name),
       users(name, image_path)`,
     )
@@ -33,6 +35,12 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
   if (error || !article) {
     notFound();
   }
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const isAuthor = user?.id === article.user_id;
 
   const { data: comments, error: commentsError } = await supabase
     .from("comments")
@@ -73,9 +81,17 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
           <p className={styles.content}>{article.content}</p>
           <div className={styles.footer}>
             <time className={styles.timestamp}>{dateConvert(article.created_at)}</time>
-            <Link href={`/articles/${article.id}/edit`}>
-              <Button label="編集" variant="success" size="medium" />
-            </Link>
+            {isAuthor && (
+              <div className={styles.actionButtons}>
+                <Link href={`/articles/${article.id}/edit`}>
+                  <Button label="編集" variant="success" size="medium" />
+                </Link>
+
+                <form action={deleteArticle.bind(null, article.id)}>
+                  <Button type="submit" label="削除" variant="danger" size="medium" />
+                </form>
+              </div>
+            )}
           </div>
         </div>
 
