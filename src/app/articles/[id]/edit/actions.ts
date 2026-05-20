@@ -79,10 +79,7 @@ export async function updateArticle(postId: number, formData: FormData) {
     // 新しい画像を Supabase Storage にアップロード
     const ext = imageFile.name.split(".").pop();
     const filePath = `blog_image/posts/${crypto.randomUUID()}.${ext}`;
-    const { data: uploadData, error: uploadError } = await supabase.storage.from("teamdev").upload(filePath, imageFile);
-
-    console.log("uploadData:", uploadData);
-    console.log("uploadError:", uploadError);
+    const { error: uploadError } = await supabase.storage.from("teamdev").upload(filePath, imageFile);
 
     // 画像パスが存在しない場合
     if (uploadError) {
@@ -92,8 +89,6 @@ export async function updateArticle(postId: number, formData: FormData) {
     }
 
     const { data } = await supabase.storage.from("teamdev").getPublicUrl(filePath);
-
-    console.log("getPublicUrl data:", data);
 
     finalImagePath = data.publicUrl;
 
