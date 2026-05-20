@@ -2,6 +2,7 @@
 
 import { createClient } from "@/libs/supabase/server";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function updateArticle(postId: number, formData: FormData) {
   const supabase = await createClient();
@@ -11,7 +12,11 @@ export async function updateArticle(postId: number, formData: FormData) {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) {
-    throw new Error("ログインしていません");
+    return {
+      errors: {
+        title: "ログインしてください",
+      },
+    };
   }
 
   // 現在のデータを取得
@@ -23,56 +28,103 @@ export async function updateArticle(postId: number, formData: FormData) {
     .single();
 
   if (fetchError || !existingPost) {
-    throw new Error("記事が見つからないか、編集権限がありません");
+    return {
+      error: "記事が見つからないか、編集権限がありません",
+    };
   }
 
   // フォームから値を取得
-  const category_id = Number(formData.get("category_id"));
+  const categoryNames = ["日常", "仕事", "勉強", "美容", "趣味", "購入品", "健康", "その他"];
+  const categoryValue = formData.get("category_id") as string;
+  const category_id = categoryNames.indexOf(categoryValue) + 1;
   const title = (formData.get("title") as string).trim();
   const content = (formData.get("content") as string).trim();
-  const imageFile = formData.get("image_path") as File | null;
+  const imageFile = formData.get("image") as File | null;
+
+  const errors: Record<string, string> = {};
+
+  console.log("DB user_id:", existingPost.user_id);
+  console.log("LOGIN user.id:", user.id);
+  console.log([...formData.entries()]);
+  console.log("postId:", postId);
+  console.log("typeof postId:", typeof postId);
 
   // バリデーション
   if (title.length < 1 || title.length > 40) {
-    throw new Error("タイトルは1文字以上40文字以内で入力してください");
+    errors.title = "タイトルは1〜40文字で入力してください";
   }
 
   if (content.length < 10 || content.length > 1000) {
-    throw new Error("記事詳細は10文字以上1000文字以内で入力してください");
+    errors.content = "本文は10文字以上1000文字以内で入力してください";
   }
 
-  if (!category_id) {
-    throw new Error("カテゴリを選択してください");
+  if (category_id === -1) {
+    errors.category = "カテゴリを選択してください";
   }
 
-  // 新しい画像を保存する画像パス（新しい画像がなければ既存画像を使用）
-  let finalImagePath = existingPost.image_path;
+  // まとめて返す
+  if (Object.keys(errors).length > 0) {
+    return { errors };
+  }
+
+  // 画像処理
+  let finalImagePath = existingPost.image_path; //新しい画像
+  let oldImagePathToDelete: string | null = null; //古い画像
+
   // 画像が選択されている場合のみアップロード
   if (imageFile && imageFile.size > 0) {
     const MAX_FILE_SIZE = 5 * 1024 * 1024;
     if (imageFile.size > MAX_FILE_SIZE) {
-      throw new Error("画像サイズは5MB以下にしてください");
+      return {
+        errors: {
+          image: "画像サイズは5MB以下にしてください",
+        },
+      };
     }
 
     // 新しい画像を Supabase Storage にアップロード
-    const fileName = `${Date.now()}-${imageFile.name}`;
-    const { error: uploadError } = await supabase.storage.from("image_path").upload(fileName, imageFile);
+    const ext = imageFile.name.split(".").pop();
+    const filePath = `blog_image/posts/${crypto.randomUUID()}.${ext}`;
+    const { data: uploadData, error: uploadError } = await supabase.storage.from("teamdev").upload(filePath, imageFile);
+
+    console.log("uploadData:", uploadData);
+    console.log("uploadError:", uploadError);
 
     // 画像パスが存在しない場合
     if (uploadError) {
-      throw new Error("画像のアップロードに失敗しました");
+      return {
+        error: "画像のアップロードに失敗しました",
+      };
     }
 
-    finalImagePath = fileName;
+    const { data } = await supabase.storage.from("teamdev").getPublicUrl(filePath);
+
+    console.log("getPublicUrl data:", data);
+
+    finalImagePath = data.publicUrl;
+
+    // 古い画像削除用（URL → path変換）
+    if (existingPost.image_path) {
+      oldImagePathToDelete = existingPost.image_path.split("/teamdev/")[1];
+    }
+
+    // const { data } = supabase.storage
+    //   .from("blog_image")
+    //   .getPublicUrl(fileName);
+
+    // finalImagePath = data.publicUrl;
+    // console.log("finalImagePath:", finalImagePath);
   }
 
   if (!finalImagePath) {
-    throw new Error("画像は必須です");
+    return {
+      error: "画像は必須です",
+    };
   }
 
   // データを更新
-  const { error: updateError } = await supabase
-    .from(`posts`)
+  const { data: updatedPost, error: updateError } = await supabase
+    .from("posts")
     .update({
       category_id,
       title,
@@ -80,10 +132,24 @@ export async function updateArticle(postId: number, formData: FormData) {
       image_path: finalImagePath,
       updated_at: new Date().toISOString(),
     })
-    .match({ id: postId, user_id: user.id });
+    .eq("id", postId)
+    .eq("user_id", user.id)
+    .select();
 
-  // 更新失敗時
-  if (updateError) throw new Error(updateError.message);
+  // 更新失敗時（0件更新も含めて判定）
+  if (updateError || !updatedPost || updatedPost.length === 0) {
+    return {
+      error: "データの更新に失敗しました",
+    };
+  }
+
+  // 古い画像の削除(DB更新が成功した後に実行）
+  if (oldImagePathToDelete) {
+    await supabase.storage.from("teamdev").remove([oldImagePathToDelete]);
+  }
 
   revalidatePath(`/articles/${postId}`);
+  revalidatePath("/");
+
+  redirect(`/articles/${postId}`);
 }
