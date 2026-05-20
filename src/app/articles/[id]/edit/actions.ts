@@ -43,12 +43,6 @@ export async function updateArticle(postId: number, formData: FormData) {
 
   const errors: Record<string, string> = {};
 
-  console.log("DB user_id:", existingPost.user_id);
-  console.log("LOGIN user.id:", user.id);
-  console.log([...formData.entries()]);
-  console.log("postId:", postId);
-  console.log("typeof postId:", typeof postId);
-
   // バリデーション
   if (title.length < 1 || title.length > 40) {
     errors.title = "タイトルは1〜40文字で入力してください";
@@ -107,13 +101,6 @@ export async function updateArticle(postId: number, formData: FormData) {
     if (existingPost.image_path) {
       oldImagePathToDelete = existingPost.image_path.split("/teamdev/")[1];
     }
-
-    // const { data } = supabase.storage
-    //   .from("blog_image")
-    //   .getPublicUrl(fileName);
-
-    // finalImagePath = data.publicUrl;
-    // console.log("finalImagePath:", finalImagePath);
   }
 
   if (!finalImagePath) {
