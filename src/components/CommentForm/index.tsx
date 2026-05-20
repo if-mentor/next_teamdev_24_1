@@ -3,14 +3,11 @@
 import { useActionState } from "react";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import { postComment } from "./action";
+import { postComment } from "../../app/articles/[id]/action";
 import styles from "./styles.module.css";
+import { CommentFormProps } from "./type";
 
-type Props = {
-  postId: number;
-};
-
-export function CommentForm({ postId }: Props) {
+export function CommentForm({ postId }: CommentFormProps) {
   const [state, formAction] = useActionState(postComment, null);
 
   return (

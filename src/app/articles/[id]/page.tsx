@@ -6,7 +6,7 @@ import Button from "@/components/Button";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateconvert";
 import Link from "next/link";
-import { CommentForm } from "./CommentForm";
+import { CommentForm } from "@/components/CommentForm";
 
 type ArticleDetailPageProps = {
   params: Promise<{ id: string }>;

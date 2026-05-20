@@ -94,22 +94,8 @@
   margin: 0 0 16px 0;
 }
 
-.commentInputWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
 .commentList {
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.errorMessage {
-  color: #e53e3e;
-  font-size: 12px;
-  margin: 0;
 }
