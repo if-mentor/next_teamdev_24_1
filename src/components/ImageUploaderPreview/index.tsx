@@ -17,7 +17,9 @@ const ImageUploaderPreview = ({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [internalError, setInternalError] = useState("");
 
-  const imageSrc = previewUrl || currentImagePath;
+  const safeImage =
+    previewUrl ||
+    (currentImagePath?.startsWith("http") ? currentImagePath : currentImagePath ? `/${currentImagePath}` : null);
 
   useEffect(() => {
     return () => {
@@ -58,8 +60,8 @@ const ImageUploaderPreview = ({
           className={styles.input}
         />
 
-        {imageSrc ? (
-          <Image src={imageSrc} alt="プレビュー" className={styles.previewImage} fill />
+        {safeImage ? (
+          <Image src={safeImage} alt="プレビュー" className={styles.previewImage} fill />
         ) : (
           <div className={styles.uploadButton}>画像アップロード</div>
         )}
