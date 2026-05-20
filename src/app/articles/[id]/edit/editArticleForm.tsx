@@ -47,7 +47,7 @@ export default function ArticleEditForm({ postId, existingPost }: ArticleEditFor
       <main className={styles.content}>
         <div className={styles.titleField}>
           <Input name="title" defaultValue={existingPost.title} placeholder="タイトルを入力" type="text" size="large" />
-          {state?.errors?.title && <p className={styles.error}>{state.errors.title}</p>}
+          {state?.errors?.title && <p className={styles.errorMessage}>{state.errors.title}</p>}
         </div>
 
         <div className={styles.imageUploaderWrapper}>
@@ -63,12 +63,12 @@ export default function ArticleEditForm({ postId, existingPost }: ArticleEditFor
             defaultValue={defaultCategory}
             required
           />
-          {state?.errors?.category && <p className={styles.error}>{state.errors.category}</p>}
+          {state?.errors?.category && <p className={styles.errorMessage}>{state.errors.category}</p>}
         </div>
 
         <div className={styles.textBoxWrapper}>
           <TextBox name="content" defaultValue={existingPost.content} />
-          {state?.errors?.content && <p className={styles.error}>{state.errors.content}</p>}
+          {state?.errors?.content && <p className={styles.errorMessage}>{state.errors.content}</p>}
         </div>
 
         <div className={styles.buttonWrapper}>
