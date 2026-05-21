@@ -25,8 +25,6 @@ export async function deleteArticle(articleId: number) {
     redirect(`/articles/${articleId}`);
   }
 
-  await supabase.from("comments").delete().eq("post_id", articleId);
-
   const { error: deleteError } = await supabase.from("posts").delete().eq("id", articleId).eq("user_id", user.id);
 
   if (deleteError) {
