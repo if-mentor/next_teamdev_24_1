@@ -6,7 +6,7 @@ import Button from "@/components/Button";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateconvert";
 import Link from "next/link";
-import { deleteArticle } from "./actions";
+import { deleteArticle } from "./action";
 import { CommentForm } from "@/components/CommentForm";
 
 type ArticleDetailPageProps = {
