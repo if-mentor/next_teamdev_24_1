@@ -1,0 +1,13 @@
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.errorMessage {
+  color: #e53e3e;
+  font-size: 12px;
+  margin: 0;
+}
