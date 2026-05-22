@@ -6,6 +6,7 @@ import styles from "./styles.module.css";
 import type { ImageUploaderPreviewProps } from "./type";
 
 const ImageUploaderPreview = ({
+  currentImagePath,
   accept = "image/png,image/jpeg,image/jpg",
   maxFileSizeMB = 5,
   disabled = false,
@@ -15,6 +16,10 @@ const ImageUploaderPreview = ({
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [internalError, setInternalError] = useState("");
+
+  const safeImage =
+    previewUrl ||
+    (currentImagePath?.startsWith("http") ? currentImagePath : currentImagePath ? `/${currentImagePath}` : null);
 
   useEffect(() => {
     return () => {
@@ -55,8 +60,8 @@ const ImageUploaderPreview = ({
           className={styles.input}
         />
 
-        {previewUrl ? (
-          <Image src={previewUrl} alt="プレビュー" className={styles.previewImage} fill />
+        {safeImage ? (
+          <Image src={safeImage} alt="プレビュー" className={styles.previewImage} fill />
         ) : (
           <div className={styles.uploadButton}>画像アップロード</div>
         )}
