@@ -20,8 +20,14 @@ export default async function ArticleEditPage({ params }: PageProps) {
   // 投稿データを取得
   const { data: existingPost, error } = await supabase.from("posts").select("*").eq("id", postId).single();
 
+  const { data: categories, error: categoryError } = await supabase.from("categories").select("id, name");
+
   if (error || !existingPost) {
     return <p>投稿が見つかりません。</p>;
+  }
+
+  if (categoryError || !categories) {
+    return <p>カテゴリ取得に失敗しました。</p>;
   }
 
   // 所有者チェック
@@ -29,5 +35,5 @@ export default async function ArticleEditPage({ params }: PageProps) {
     return <p>投稿者以外は編集できません。</p>;
   }
 
-  return <ArticleEditForm postId={postId} existingPost={existingPost} />;
+  return <ArticleEditForm postId={postId} existingPost={existingPost} categories={categories} />;
 }

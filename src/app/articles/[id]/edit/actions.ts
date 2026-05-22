@@ -32,11 +32,18 @@ export async function updateArticle(postId: number, formData: FormData) {
       error: "記事が見つからないか、編集権限がありません",
     };
   }
+  const { data: categories, error: categoryError } = await supabase.from("categories").select("id, name");
+
+  if (categoryError || !categories) {
+    return {
+      error: "カテゴリ取得に失敗しました",
+    };
+  }
 
   // フォームから値を取得
-  const categoryNames = ["日常", "仕事", "勉強", "美容", "趣味", "購入品", "健康", "その他"];
   const categoryValue = formData.get("category_id") as string;
-  const category_id = categoryNames.indexOf(categoryValue) + 1;
+  const selectedCategory = categories.find((category) => category.name === categoryValue);
+  const category_id = selectedCategory?.id;
   const title = (formData.get("title") as string).trim();
   const content = (formData.get("content") as string).trim();
   const imageFile = formData.get("image") as File | null;
@@ -52,7 +59,7 @@ export async function updateArticle(postId: number, formData: FormData) {
     errors.content = "本文は10文字以上1000文字以内で入力してください";
   }
 
-  if (category_id === -1) {
+  if (!selectedCategory) {
     errors.category = "カテゴリを選択してください";
   }
 

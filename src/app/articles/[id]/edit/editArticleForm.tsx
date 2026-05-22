@@ -9,8 +9,6 @@ import ImageUploaderPreview from "@/components/ImageUploaderPreview";
 import TextBox from "@/components/TextBox";
 import styles from "./styles.module.css";
 
-const categoryNames = ["日常", "仕事", "勉強", "美容", "趣味", "購入品", "健康", "その他"];
-
 type ArticleEditFormProps = {
   postId: number;
   existingPost: {
@@ -21,6 +19,10 @@ type ArticleEditFormProps = {
     category_id: number;
     user_id: string;
   };
+  categories: {
+    id: number;
+    name: string;
+  }[];
 };
 
 type ActionState = {
@@ -33,14 +35,16 @@ type ActionState = {
   error?: string;
 } | null;
 
-export default function ArticleEditForm({ postId, existingPost }: ArticleEditFormProps) {
+export default function ArticleEditForm({ postId, existingPost, categories }: ArticleEditFormProps) {
   const [state, formAction] = useActionState<ActionState, FormData>(async (_prevState, formData: FormData) => {
     return await updateArticle(postId, formData);
   }, null);
 
   const currentImageUrl = existingPost.image_path;
 
-  const defaultCategory = categoryNames[existingPost.category_id - 1] ?? "";
+  const categoryNames = categories.map((category) => category.name);
+
+  const defaultCategory = categories.find((category) => category.id === existingPost.category_id)?.name ?? "";
 
   return (
     <form action={formAction}>
