@@ -5,12 +5,18 @@ import styles from "./styles.module.css";
 import { searchAction } from "./actions";
 import Link from "next/link";
 
-export default async function Home() {
+export default async function Home({ searchParams }: { searchParams: Promise<{ keyword?: string }> }) {
+  const { keyword } = await searchParams;
   const supabase = await createClient();
-  const { data: posts } = await supabase
+  let query = supabase
     .from("posts")
     .select("*, users(name), categories(name)")
     .order("created_at", { ascending: false });
+  if (keyword) {
+    query = query.ilike("title", `%${keyword}%`);
+  }
+
+  const { data: posts } = await query;
 
   return (
     <>
