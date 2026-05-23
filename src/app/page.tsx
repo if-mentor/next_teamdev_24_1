@@ -4,6 +4,7 @@ import { SearchForm } from "@/components/SearchForm";
 import { Pagination } from "@/components/Pagination";
 import styles from "./styles.module.css";
 import { searchAction } from "./actions";
+import { getValidPageNumber } from "@/utils/getValidPageNumber";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -15,14 +16,9 @@ type HomeProps = {
 
 export default async function Home({ searchParams }: HomeProps) {
   const { page } = await searchParams;
-  const pageNumber = Number(page);
-  const isValidPage = Number.isInteger(pageNumber) && pageNumber >= 1;
-
-  if (page !== undefined && !isValidPage) {
-    redirect("/");
-  }
-
-  const currentPage = isValidPage ? pageNumber : 1;
+  const parsedPage = getValidPageNumber(page);
+  if (parsedPage === null) redirect("/");
+  const currentPage = parsedPage;
   const startIndex = (currentPage - 1) * PAGE_SIZE;
   const endIndex = startIndex + PAGE_SIZE - 1;
 
