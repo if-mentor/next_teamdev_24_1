@@ -5,8 +5,12 @@ import styles from "./styles.module.css";
 import TextBox from "@/components/TextBox";
 import ImageUploaderPreview from "@/components/ImageUploaderPreview";
 import { createPost } from "./actions";
+import { createClient } from "@/libs/supabase/server";
 
-export default function ArticleNewPage() {
+export default async function ArticleNewPage() {
+  const supabase = await createClient();
+  const { data: categories } = await supabase.from("categories").select("id, name").order("id", { ascending: true });
+
   return (
     <div>
       <main className={styles.wrapper}>
@@ -23,7 +27,7 @@ export default function ArticleNewPage() {
             <SelectBox
               label="カテゴリ"
               name="category_id"
-              options={["日常", "仕事", "勉強", "美容", "趣味", "購入品", "健康", "その他"]}
+              options={categories?.map((category) => ({ label: category.name, value: String(category.id) })) ?? []}
               placeholder="カテゴリ選択"
             />
           </div>
