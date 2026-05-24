@@ -34,3 +34,9 @@
   width: 100%;
   justify-content: flex-end;
 }
+
+.errorMessage {
+  color: #dc2626;
+  font-size: 14px;
+  margin-top: 8px;
+}
