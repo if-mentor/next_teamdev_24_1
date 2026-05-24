@@ -1,24 +1,46 @@
 import { createClient } from "@/libs/supabase/server";
 import { PostCard } from "@/components/PostCard";
 import { SearchForm } from "@/components/SearchForm";
+import { Pagination } from "@/components/Pagination";
 import styles from "./styles.module.css";
 import { searchAction } from "./actions";
+import { getValidPageNumber } from "@/utils/getValidPageNumber";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+
+const PAGE_SIZE = 8;
 
 const SUPABASE_STORAGE_URL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/`;
 
-export default async function Home({ searchParams }: { searchParams: Promise<{ keyword?: string }> }) {
-  const { keyword } = await searchParams;
+type HomeProps = {
+  searchParams: Promise<{ page?: string; keyword?: string }>;
+};
+
+export default async function Home({ searchParams }: HomeProps) {
+  const { keyword, page } = await searchParams;
+
+  const parsedPage = getValidPageNumber(page);
+  if (parsedPage === null) redirect("/");
+  const currentPage = parsedPage;
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const endIndex = startIndex + PAGE_SIZE - 1;
   const supabase = await createClient();
+
   let query = supabase
     .from("posts")
-    .select("*, users(name), categories(name)")
-    .order("created_at", { ascending: false });
+    .select("*, users(name), categories(name)", { count: "exact" })
+    .order("created_at", { ascending: false })
+    .range(startIndex, endIndex);
   if (keyword) {
     query = query.ilike("title", `%${keyword}%`);
   }
 
-  const { data: posts } = await query;
+  const { data: posts, count } = await query;
+  const totalPages = Math.ceil((count ?? 0) / PAGE_SIZE);
+
+  if (currentPage > Math.max(totalPages, 1)) {
+    redirect("/");
+  }
 
   return (
     <>
@@ -46,6 +68,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ k
             </Link>
           ))}
         </div>
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
       </main>
     </>
   );
