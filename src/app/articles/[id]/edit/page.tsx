@@ -1,35 +1,39 @@
-import Input from "@/components/Input";
-import styles from "./styles.module.css";
-import SelectBox from "@/components/SelectBox";
-import Button from "@/components/Button";
-import ImageUploaderPreview from "@/components/ImageUploaderPreview";
-import TextBox from "@/components/TextBox";
+import ArticleEditForm from "./editArticleForm";
+import { createClient } from "@/libs/supabase/server";
 
-export default function ArticleEditPage() {
-  return (
-    <>
-      <main className={styles.content}>
-        <div className={styles.titleField}>
-          <Input placeholder="タイトルを入力" type="text" size="large" />
-        </div>
-        <div className={styles.imageUploaderWrapper}>
-          <ImageUploaderPreview />
-        </div>
-        <div className={styles.selectBoxWrapper}>
-          <SelectBox
-            label="カテゴリ"
-            options={["日常", "仕事", "勉強", "美容", "趣味", "購入品", "健康", "その他"]}
-            placeholder="カテゴリ選択"
-          />
-        </div>
-        <div className={styles.textBoxWrapper}>
-          <TextBox />
-        </div>
-        <div className={styles.buttonWrapper}>
-          <Button label="更新" variant="success" />
-          <Button label="削除" variant="danger" />
-        </div>
-      </main>
-    </>
-  );
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function ArticleEditPage({ params }: PageProps) {
+  const { id } = await params;
+  const postId = Number(id);
+  const supabase = await createClient();
+
+  // 現在のログインユーザーを取得
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // 投稿データを取得
+  const { data: existingPost, error } = await supabase.from("posts").select("*").eq("id", postId).single();
+
+  const { data: categories, error: categoryError } = await supabase.from("categories").select("id, name");
+
+  if (error || !existingPost) {
+    return <p>投稿が見つかりません。</p>;
+  }
+
+  if (categoryError || !categories) {
+    return <p>カテゴリ取得に失敗しました。</p>;
+  }
+
+  // 所有者チェック
+  if (!user || existingPost.user_id !== user.id) {
+    return <p>投稿者以外は編集できません。</p>;
+  }
+
+  return <ArticleEditForm postId={postId} existingPost={existingPost} categories={categories} />;
 }
