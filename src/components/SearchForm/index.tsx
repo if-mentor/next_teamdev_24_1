@@ -24,7 +24,7 @@ export const SearchForm = ({
           disabled={disabled}
           className={styles.searchInput}
         />
-        <Button label="検索" disabled={disabled} />
+        <Button label="検索" type="submit" disabled={disabled} />
       </div>
     </form>
   );
