@@ -10,5 +10,9 @@ export async function logout() {
 }
 
 export async function searchAction(formData: FormData) {
-  console.log(formData.get("keyword"));
+  const keyword = formData.get("keyword")?.toString().trim() ?? "";
+  if (keyword === "") {
+    redirect("/");
+  }
+  redirect(`/?keyword=${encodeURIComponent(keyword)}`);
 }

@@ -7,12 +7,18 @@ import Link from "next/link";
 
 const SUPABASE_STORAGE_URL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/`;
 
-export default async function Home() {
+export default async function Home({ searchParams }: { searchParams: Promise<{ keyword?: string }> }) {
+  const { keyword } = await searchParams;
   const supabase = await createClient();
-  const { data: posts } = await supabase
+  let query = supabase
     .from("posts")
     .select("*, users(name), categories(name)")
     .order("created_at", { ascending: false });
+  if (keyword) {
+    query = query.ilike("title", `%${keyword}%`);
+  }
+
+  const { data: posts } = await query;
 
   return (
     <>
